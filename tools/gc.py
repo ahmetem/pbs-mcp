@@ -74,6 +74,7 @@ def run_gc_handler(client: Any, params: RunGcInput) -> str:
         )
     ds = client.resolve_datastore(params.datastore)
     upid = client.post(f"/admin/datastore/{ds}/gc")
+    # response shape: just the UPID string
     reason_suffix = f" (reason: {params.reason})" if params.reason else ""
     return (
         f"OK: GC started on datastore `{ds}`{reason_suffix}.\n\n"

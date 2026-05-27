@@ -84,6 +84,9 @@ def datastore_status_handler(client: Any, params: DatastoreStatusInput) -> str:
 
 # ---------- tool metadata ----------------------------------------------------
 
+# Tool definitions are registered in server.py to keep all schemas in one
+# place. These dicts are the source of truth for input schema + description.
+
 TOOL_SPECS = [
     {
         "name": "pbs_list_datastores",

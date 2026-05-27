@@ -19,6 +19,7 @@ from pydantic import BaseModel, ValidationError
 from pbs_client import PbsApiError, PbsClient, PbsConfigError
 from tools import datastore, gc, prune, snapshots, tasks, verify
 
+# Tool order: read-only first, then write tools, grouped by area.
 _ALL_TOOL_SPECS: list[dict[str, Any]] = (
     datastore.TOOL_SPECS
     + snapshots.TOOL_SPECS
@@ -28,6 +29,8 @@ _ALL_TOOL_SPECS: list[dict[str, Any]] = (
     + prune.TOOL_SPECS
 )
 
+# Module-level: configure logging to stderr so it doesn't pollute the stdio
+# JSON-RPC stream.
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [pbs-mcp] %(levelname)s %(message)s",
@@ -37,6 +40,7 @@ log = logging.getLogger("pbs-mcp")
 
 
 def _tool_to_mcp(spec: dict[str, Any]) -> Tool:
+    """Convert a TOOL_SPEC dict into an mcp.types.Tool."""
     model: type[BaseModel] = spec["input_model"]
     return Tool(
         name=spec["name"],
