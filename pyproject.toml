@@ -1,0 +1,27 @@
+[project]
+name = "pbs-mcp"
+version = "0.1.0"
+description = "MCP server for Proxmox Backup Server (datastore, snapshot, GC, verify, prune)"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+authors = [{ name = "Ahmet Karaca", email = "ahmet@ahmetkaraca.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "pydantic>=2.0.0",
+    "requests>=2.31.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ahmetem/pbs-mcp"
+Repository = "https://github.com/ahmetem/pbs-mcp"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["pbs_mcp", "pbs_client"]
+
+[tool.setuptools.packages.find]
+include = ["tools*"]
